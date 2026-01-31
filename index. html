@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CASFETA | Muungano wa Makanisa Shuleni</title>
+<style>
+  /* ====== General Styles ====== */
+  body {font-family: Arial, sans-serif; margin:0; padding:0; background:#f2f9ff; color:#333;}
+  header {background:#0d47a1; color:white; text-align:center; padding:30px 10px;}
+  header h1 {margin:0; font-size:2.5em;}
+  header p {margin:5px 0 0; font-size:1.1em;}
+
+  nav {display:flex; justify-content:center; background:#1976d2;}
+  nav a {color:white; padding:15px 20px; text-decoration:none; transition:0.3s;}
+  nav a:hover {background:#1565c0;}
+
+  section {padding:30px 20px; max-width:900px; margin:auto;}
+  h2 {color:#0d47a1;}
+
+  /* ====== Matangazo / Habari ====== */
+  .card {background:white; padding:20px; margin:15px 0; box-shadow:0 3px 6px rgba(0,0,0,0.1); border-radius:8px;}
+
+  /* ====== Forms ====== */
+  input[type="text"], input[type="email"], input[type="password"], textarea {
+    width:100%; padding:10px; margin:5px 0 15px; border:1px solid #ccc; border-radius:5px;
+  }
+  button {background:#0d47a1; color:white; border:none; padding:12px 25px; border-radius:5px; cursor:pointer;}
+  button:hover {background:#1565c0;}
+
+  /* ====== Sign In ====== */
+  #login {max-width:400px; margin:auto; background:white; padding:25px; box-shadow:0 3px 6px rgba(0,0,0,0.1); border-radius:8px;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>CASFETA</h1>
+  <p>Muungano wa Makanisa ya Pentecoste Shuleni</p>
+</header>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="#nyumbani">Nyumbani</a>
+  <a href="#matangazo">Matangazo</a>
+  <a href="#habari">Habari</a>
+  <a href="#fomu">Fomu</a>
+  <a href="#login">Ingia</a>
+</nav>
+
+<!-- HOME SECTION -->
+<section id="nyumbani">
+  <h2>Neno la Leo</h2>
+  <p>"Bwana ni nuru yangu na wokovu wangu" – Zaburi 27:1</p>
+</section>
+
+<!-- ANNOUNCEMENTS -->
+<section id="matangazo">
+  <h2>Matangazo</h2>
+  <div class="card">
+    <h3>Mkutano wa CASFETA</h3>
+    <p>Tarehe: 15 Februari 2026</p>
+    <p>Mahali: Ukumbi wa Shule</p>
+  </div>
+  <div class="card">
+    <h3>Shughuli ya Misheni</h3>
+    <p>Tarehe: 22 Februari 2026</p>
+    <p>Wanafunzi wote wanakaribishwa kushiriki</p>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section id="habari">
+  <h2>Habari</h2>
+  <div class="card">
+    <h3>Sherehe ya Mafanikio ya CASFETA</h3>
+    <p>Tarehe ya Machapisho: 28 Januari 2026</p>
+    <p>CASFETA shuleni imetoa mchango mkubwa kwa wanafunzi na walimu</p>
+  </div>
+</section>
+
+<!-- FORMS -->
+<section id="fomu">
+  <h2>Fomu</h2>
+  <form id="sampleForm">
+    <label>Jina Kamili:</label>
+    <input type="text" name="jina" placeholder="Jaza jina lako" required>
+    <label>Barua pepe:</label>
+    <input type="email" name="email" placeholder="Jaza barua pepe" required>
+    <label>Ujumbe:</label>
+    <textarea name="ujumbe" placeholder="Andika ujumbe wako" required></textarea>
+    <button type="submit">Tuma</button>
+  </form>
+</section>
+
+<!-- LOGIN -->
+<section id="login">
+  <h2>Ingia</h2>
+  <form id="loginForm">
+    <label>Barua pepe:</label>
+    <input type="email" id="email" placeholder="Jaza barua pepe" required>
+    <label>Password:</label>
+    <input type="password" id="password" placeholder="Jaza password" required>
+    <button type="submit">Ingia</button>
+  </form>
+</section>
+
+<!-- Firebase Scripts -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "API_KEY_YAKO",
+    authDomain: "PROJECT_ID.firebaseapp.com",
+    projectId: "PROJECT_ID",
+    storageBucket: "PROJECT_ID.appspot.com",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const loginForm = document.getElementById("loginForm");
+  loginForm.addEventListener("submit", (e)=>{
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => alert("Karibu CASFETA 🙏"))
+      .catch(err => alert("Kosa: " + err.message));
+  });
+
+  // Optional: Add form submission logic for #sampleForm here
+  const sampleForm = document.getElementById("sampleForm");
+  sampleForm.addEventListener("submit", (e)=>{
+    e.preventDefault();
+    alert("Ujumbe umewasilishwa!");
+    sampleForm.reset();
+  });
+</script>
+
+</body>
+</html>
